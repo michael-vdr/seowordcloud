@@ -53,7 +53,7 @@ if keyword is not None and len(apikey)==39 and len(searchengineid)==33:
 			if r.status_code == 200:
 				soup = BeautifulSoup(r.content,'html.parser')
 				#table = soup.find('div',attrs={"id":"main-content"})
-				text = soup.text
+				text = soup.text.strip()
 				cleaned_text = re.split('\t',text)
 				cleaned_texts = re.split('\n',str(cleaned_text))	
 				cleaned_textss = "".join(cleaned_texts)
