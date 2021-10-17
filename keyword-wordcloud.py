@@ -48,19 +48,25 @@ if keyword is not None and len(apikey)==39 and len(searchengineid)==33:
 	for item in res["items"]:
 		link = item["link"]
 		st.write(link)
-		r = requests.get(link)
-		soup = BeautifulSoup(r.content,'html.parser')
-		#table = soup.find('div',attrs={"id":"main-content"})
-		text = soup.text
-		cleaned_text = re.split('\t',text)
-		cleaned_texts = re.split('\n',str(cleaned_text))	
-		cleaned_textss = "".join(cleaned_texts)
-		stopwords = set(STOPWORDS)
-		wordcloud = WordCloud(background_color="white",max_words=words,stopwords=stopwords).generate(cleaned_textss)
-		plt.imshow(wordcloud,interpolation='bilinear')
-		plt.axis("off")
-		plt.show()
-		st.pyplot()
+		try:
+			r = requests.get(link)
+			if r.status_code == 200:
+				soup = BeautifulSoup(r.content,'html.parser')
+				#table = soup.find('div',attrs={"id":"main-content"})
+				text = soup.text
+				cleaned_text = re.split('\t',text)
+				cleaned_texts = re.split('\n',str(cleaned_text))	
+				cleaned_textss = "".join(cleaned_texts)
+				stopwords = set(STOPWORDS)
+				wordcloud = WordCloud(background_color="white",max_words=words,stopwords=stopwords).generate(cleaned_textss)
+				plt.imshow(wordcloud,interpolation='bilinear')
+				plt.axis("off")
+				plt.show()
+				st.pyplot()
+			else:
+				st.write("Bad Status code")
+		except:
+			st.write("Website not accessible for bots")
 
 #if URL is not None:
 #	r = requests.get(URL)
