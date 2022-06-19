@@ -31,7 +31,7 @@ words = st.sidebar.selectbox("Number of words",range(10,1000,10))
 #	URL = st.text_input(label="Enter URL")
 #	submit_button = st.form_submit_button(label='Make wordcloud')
 
-if keyword is not None and len(apikey)==39 and len(searchengineid)==33:
+if keyword is not None and len(apikey)==39 and len(searchengineid)>5:
 	API_KEY = apikey
 	# get your Search Engine ID on your CSE control panel
 	SEARCH_ENGINE_ID = searchengineid
